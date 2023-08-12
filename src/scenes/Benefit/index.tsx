@@ -2,6 +2,8 @@ import { HText } from "@/shared/HText";
 import { BenefitsType, SelectedPage } from "@/shared/types";
 import { motion } from "framer-motion";
 import Benefits from "@/scenes/Benefit/Benefits";
+import { ActionButton } from "@/shared/ActionButton";
+import BenefitPageGraphic from "@/assets/BenefitsPageGraphic.png";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -85,7 +87,16 @@ export const Benefit = ({ setSelectedPage }: Props) => {
           setSelectedPage(SelectedPage.Benefits);
         }}>
         {/*HEADER */}
-        <div className="md:my-5 md:w-3/5">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}
+          className="md:my-5 md:w-3/5">
           <HText>MORE THEN JUST A GYM</HText>
           <p className="my-5 text-sm">
             In consectetur ad excepteur sunt sunt ipsum exercitation velit
@@ -96,10 +107,19 @@ export const Benefit = ({ setSelectedPage }: Props) => {
             occaecat anim nulla nostrud. Nulla elit sint incididunt exercitation
             nulla aute et.
           </p>
-        </div>
+        </motion.div>
 
         {/*BENEFITS*/}
-        <div className="md:flex items-center justify-between gap-8 mt-5">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}
+          className="md:flex items-center justify-between gap-8 mt-5">
           {benefits.map((benefit) => (
             <Benefits
               key={benefit.title}
@@ -109,6 +129,73 @@ export const Benefit = ({ setSelectedPage }: Props) => {
               setSelectedPage={setSelectedPage}
             />
           ))}
+        </motion.div>
+        {/*Graphic and Description*/}
+        <div className="mt-16  items-center justify-center gap-20 md:mt-28 md:flex">
+          {/*Graphic*/}
+          <img
+            className="mx-auto"
+            alt="benefit-page-graphic"
+            src={BenefitPageGraphic}
+          />
+          {/*Description*/}
+          <div>
+            {/*Title*/}
+            <div className="relative">
+              <div className="before:absolute before:-top-20 before:-left-20 before:z-[1] before:content-abstractwaves">
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.5 }}
+                  transition={{ duration: 0.5 }}
+                  variants={{
+                    hidden: { opacity: 0, x: 50 },
+                    visible: { opacity: 1, x: 0 },
+                  }}>
+                  <HText>
+                    MILLIONS OF HAPPY MEMBERS GETTING{" "}
+                    <span className="text-primary-500">FIT</span>
+                  </HText>
+                </motion.div>
+              </div>
+            </div>
+
+            {/*Description*/}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{delay:0.2, duration: 0.5 }}
+              variants={{
+                hidden: { opacity: 0, x: 50 },
+                visible: { opacity: 1, x: 0 },
+              }}>
+              <p className="my-5">
+                Exercitation voluptate velit adipisicing aliqua nulla. Sint
+                dolore aute est pariatur ut cillum voluptate laborum. Culpa non
+                officia aliqua aliquip ex nulla in adipisicing sint esse laboris
+                magna. Occaecat nulla excepteur fugiat cillum culpa nisi elit
+                aliqua aliqua occaecat incididunt in culpa.
+              </p>
+              <p className="mb-5">
+                Veniam qui nostrud nisi exercitation ullamco dolor duis quis.
+                Mollit velit laborum et mollit enim sint enim elit dolor eu
+                consequat laboris qui. In deserunt quis velit amet voluptate
+                consectetur nostrud consectetur aliquip do excepteur adipisicing
+                in. Laboris sunt occaecat enim est. Ut aliqua aliquip
+                reprehenderit consequat amet culpa cillum aute aute qui.
+              </p>
+            </motion.div>
+
+            {/*Button*/}
+            <div className="relative mt-16">
+              <div className="before:absolute before:-bottom-20 before:right-40 before:z-[1] before:content-sparkles">
+                <ActionButton setSelectedPage={setSelectedPage}>
+                  Join Now
+                </ActionButton>
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
     </section>
